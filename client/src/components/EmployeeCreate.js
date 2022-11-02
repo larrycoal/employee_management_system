@@ -1,4 +1,6 @@
-const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee }) => {
+import React from 'react';
+
+const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee,fetchData }) => {
   const [formData, setFormData] = React.useState({});
   const [errorMessage, setErrorMessage] = React.useState(null);
 
@@ -35,8 +37,10 @@ const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee }) => {
         currentStatus: 1,
         age: parseInt(formData.age),
       };
+       
+      AddNewEmployee(dataToSubmit);
       setShowAdd(false);
-      AddNewEmployee(dataToSubmit)
+      fetchData()
     }
   };
   return (
@@ -145,154 +149,4 @@ const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee }) => {
   );
 };
 
-const EmployeeSearch = () => {
-  return <h2>Search all employees component</h2>;
-};
-
-const EmployeeTable = ({ employeeList, setShowAdd }) => {
-  const displayEmployee = () => {
-    return employeeList.map((employee) => {
-      const date = new Date(parseInt(employee.startDate));
-      return (
-        <tr key={employee._id}>
-          <td>{employee.firstName}</td>
-          <td>{employee.lastName}</td>
-          <td>{employee.age}</td>
-          <td>{date.toLocaleDateString()}</td>
-          <td>{employee.title}</td>
-          <td>{employee.department}</td>
-          <td>{employee.employeeType}</td>
-          <td>{employee.currentStatus ? 1 : 0}</td>
-          <td>Edit</td>
-          <td>Delete</td>
-        </tr>
-      );
-    });
-  };
-  return (
-    <div className="employee__table-wrapper">
-      <table className="employee__table">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Title</th>
-            <th>Department</th>
-            <th>Employee type</th>
-            <th>Current status</th>
-            <th colSpan={2}>Action</th>
-          </tr>
-        </thead>
-        <tbody>{displayEmployee()}</tbody>
-      </table>
-      <button className="add_btn" onClick={() => setShowAdd(true)}>
-        Add Employee
-      </button>
-    </div>
-  );
-};
-
-const EmployeeDirectory = () => {
-  const [showAdd, setShowAdd] = React.useState(false);
-  const [employees, setEmployees] = React.useState([]);
-  const query = `query{
-    employeeList {
-    _id
-    firstName
-    lastName
-    age
-    startDate
-    title
-    department
-    employeeType
-    currentStatus
-  }
-  }`;
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/graphql", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ query }),
-        });
-        if (response) {
-          let fetchedData = await response.json();
-          let fetchedEmployeeList = fetchedData.data.employeeList;
-          setEmployees(fetchedEmployeeList);
-        }
-      } catch (err) {
-        console.log(err?.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const AddNewEmployee = async (employeeDetails) => {
-    const firstName = employeeDetails.firstName;
-    const lastName = employeeDetails.lastName;
-    const age = employeeDetails.age;
-    const startDate = employeeDetails.starteDate
-    const title = employeeDetails.title;
-    const department = employeeDetails.department;
-    const employeeType = employeeDetails.employeeType;
-    const currentStatus = Boolean(employeeDetails.currentStatus);
-    console.log(employeeDetails)
-    const Mquery = `mutation{
-        addEmployee(firstName:"${firstName}",lastName:"${lastName}",age:${age},startDate:"${startDate}",title:"${title}",department:"${department}",employeeType:"${employeeType}",currentStatus:${currentStatus}){
-        firstName,
-        lastName,
-        age,
-        startDate,
-        title,
-        department,
-        employeeType,
-        currentStatus
-        }
-  }`;
-     await fetch("/graphql", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify({ Mquery }),
-     }).then(async (response) => {
-       let resp = await response.json();
-       if (resp.errors.length > 0) {
-         console.log(resp.errors[0].message);
-       }
-
-       console.log(resp);
-     });
-  };
-  return (
-    <div className="employee__wrapper">
-      <EmployeeSearch />
-      <EmployeeTable employeeList={employees} setShowAdd={setShowAdd} />
-      <EmployeeCreate
-        showAdd={showAdd}
-        setShowAdd={setShowAdd}
-        AddNewEmployee={AddNewEmployee}
-      />
-    </div>
-  );
-};
-
-const App = () => {
-  return (
-    <div className="main__wrapper">
-      <header>
-        <h2>EMS</h2>
-      </header>
-      <EmployeeDirectory />
-    </div>
-  );
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+export default EmployeeCreate;
