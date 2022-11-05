@@ -35,7 +35,7 @@ const EmployeeDirectory = () => {
       console.log(err?.message);
     }
   },[query]);
-  
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);

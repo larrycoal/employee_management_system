@@ -12,10 +12,12 @@ body,
 header {
   padding: 10px 2rem;
   box-shadow: 0px 3px 7px 0px #e3dfdf;
+  background-color: white;
 }
 .employee__wrapper{
-    width: 90%;
-    margin: 0 auto;
+    background: white;
+    height: fit-content;
+    padding: 1rem 30px;
 }
 .employee__table {
   font-family: Arial, Helvetica, sans-serif;
@@ -117,4 +119,95 @@ header {
     text-align: center;
     width: 100%;
     color: red;
+}
+.main__wrapper{
+    height: 100%;
+}
+.layout{
+   display: grid;
+   grid-template-areas: 
+   "nav header header"
+   "nav main main"
+   "nav main main";
+   grid-template-columns: 180px 1fr;
+   grid-template-rows: 50px 1fr;
+   gap: 1rem;
+   height: 100%;
+   background: #f0e2e2;
+
+}
+.navbar{
+    grid-area: nav;
+    background-color: white;
+}
+.navbar h2{
+    padding: 20px 1rem;
+    font-size: 1.8rem;
+}
+.navbar ul{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 1rem;
+    margin: 1rem 10px;
+    font-size: 1.2rem;
+}
+.navbar ul a{
+    text-decoration: none;
+    color: #2a312f;
+}
+.navbar ul i{
+    font-size: 1rem;
+    margin: 0 5px;
+}
+.header{
+    grid-area: header;
+}
+.employee__wrapper{
+    grid-area: main;
+}
+.card__wrapper{
+    background-color: white;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0px 3px 7px 0px #e3dfdf;
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    flex: 1;
+    padding: 1rem;
+}
+.card__wrapper .top{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    background-color: #2a312f;
+    position: absolute;
+    left: -20px;
+    top: -50px;
+}
+.card__wrapper .bottom{
+    display: flex;
+    flex-direction: column;
+    justify-self: end;
+    align-self: flex-end;
+    align-items: flex-end;
+    flex: 1;
+}
+.card__wrapper .bottom span:nth-child(1){
+    font-size: 2rem;
+    font-weight: 600;
+}
+.dashboard__wrapper .top{
+    display: flex;
+    gap: 2rem
+}
+.dashboard__wrapper{
+    background-color: white;
+    padding: 2rem;
+}
+.dashboard__wrapper .chart__wrapper{
+    height: 400px;
+    width: 100%;
+    margin: 2rem 0;
 }
