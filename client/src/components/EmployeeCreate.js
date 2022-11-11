@@ -85,8 +85,8 @@ const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee,fetchData }) => {
             <label htmlFor="startDate">Date Of Joining</label>
             <input
               type="date"
-              id="starteDate"
-              name="starteDate"
+              id="startDate"
+              name="startDate"
               required
               onChange={handleChange}
             />

@@ -1,4 +1,5 @@
 import React from 'react';
+import{Link} from "react-router-dom"
 
 const EmployeeTable = ({ employeeList, setShowAdd }) => {
   const displayEmployee = () => {
@@ -14,7 +15,9 @@ const EmployeeTable = ({ employeeList, setShowAdd }) => {
           <td>{employee.department}</td>
           <td>{employee.employeeType}</td>
           <td>{employee.currentStatus ? 1 : 0}</td>
-          <td>Edit</td>
+          <td>
+            <Link to={`/employee/${employee._id}`}>Edit</Link>
+          </td>
           <td>Delete</td>
         </tr>
       );

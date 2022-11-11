@@ -3,7 +3,7 @@ import EmployeeTable from "./EmployeeTable";
 import EmployeeCreate from "./EmployeeCreate";
 import EmployeeSearch from "./EmployeeSearch";
 
-const EmployeeDirectory = () => {
+const EmployeeDirectory = ({AddNewEmployee}) => {
   const [showAdd, setShowAdd] = useState(false);
   const [employees, setEmployees] = useState([]);
   const query = `query{
@@ -40,41 +40,6 @@ const EmployeeDirectory = () => {
     fetchData();
   }, [fetchData]);
 
-  const AddNewEmployee = async (employeeDetails) => {
-    const firstName = employeeDetails.firstName;
-    const lastName = employeeDetails.lastName;
-    const age = employeeDetails.age;
-    const startDate = employeeDetails.starteDate;
-    const title = employeeDetails.title;
-    const department = employeeDetails.department;
-    const employeeType = employeeDetails.employeeType;
-    const currentStatus = Boolean(employeeDetails.currentStatus);
-
-    const query = `mutation{
-        addEmployee(firstName:"${firstName}",lastName:"${lastName}",age:${age},startDate:"${startDate}",title:"${title}",department:"${department}",employeeType:"${employeeType}",currentStatus:${currentStatus}){
-        firstName,
-        lastName,
-        age,
-        startDate,
-        title,
-        department,
-        employeeType,
-        currentStatus
-        }
-  }`;
-    await fetch("http://localhost:3000/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query }),
-    }).then(async (response) => {
-      let resp = await response.json();
-      if (resp.errors.length > 0) {
-        console.log(resp.errors[0].message);
-      }
-
-      console.log(resp);
-    });
-  };
   return (
     <div className="employee__wrapper">
       <EmployeeSearch />
