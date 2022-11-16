@@ -229,3 +229,10 @@ header {
     flex-direction: column;
     width: 40%;
 }
+.employee__table td{
+    cursor: pointer;
+}
+.employee__table td a{
+    text-decoration: none;
+    color: #2a312f;
+}

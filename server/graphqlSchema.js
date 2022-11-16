@@ -41,6 +41,9 @@ type Mutation{
 type Mutation{
     fetchSingleEmployee(_id:String):employee
 }
+type Mutation{
+    deleteEmployee(_id:String):Boolean
+}
 `;
 
 const employeeList = async () => {
@@ -59,9 +62,19 @@ const editEmployee = async (_, employeeDetails) => {
     ...employeeDetails,
   });
   if (resp) {
-    console.log(resp);
+    return resp;
   }
 };
+const deleteEmployee = async(_,employeeId)=>{
+     Employee.findByIdAndDelete(employeeId,(err,doc)=>{
+         if(err){
+            console.log(err)
+         }else{
+            console.log(doc)
+            return true
+         }
+     })
+}
 const resolvers = {
   Query: {
     employeeList,
@@ -70,6 +83,7 @@ const resolvers = {
     addEmployee,
     fetchSingleEmployee,
     editEmployee,
+    deleteEmployee
   },
 };
 module.exports = { typeDefs, resolvers };

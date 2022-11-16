@@ -35,7 +35,24 @@ const EmployeeDirectory = ({AddNewEmployee}) => {
       console.log(err?.message);
     }
   },[query]);
+  const deleteSingleEmployee =async (id)=>{
+    const query = `mutation{
+        deleteEmployee(_id:"${id}")
+    }`
 
+    try {
+        const resp = await fetch("http://localhost:3000/graphql", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        });
+        if (resp.status === 200) {
+          fetchData()
+        }
+    } catch (error) {
+        console.log(error)
+    }
+  }
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -43,7 +60,7 @@ const EmployeeDirectory = ({AddNewEmployee}) => {
   return (
     <div className="employee__wrapper">
       <EmployeeSearch />
-      <EmployeeTable employeeList={employees} setShowAdd={setShowAdd} />
+      <EmployeeTable employeeList={employees} setShowAdd={setShowAdd} deleteSingleEmployee={deleteSingleEmployee} />
       <EmployeeCreate
         showAdd={showAdd}
         setShowAdd={setShowAdd}

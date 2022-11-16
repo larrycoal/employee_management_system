@@ -1,7 +1,7 @@
 import React from 'react';
 import{Link} from "react-router-dom"
 
-const EmployeeTable = ({ employeeList, setShowAdd }) => {
+const EmployeeTable = ({ employeeList, setShowAdd,deleteSingleEmployee }) => {
   const displayEmployee = () => {
     return employeeList.map((employee,idx) => {
       const date = new Date(parseInt(employee.startDate));
@@ -18,7 +18,7 @@ const EmployeeTable = ({ employeeList, setShowAdd }) => {
           <td>
             <Link to={`/employee/${employee._id}`}>Edit</Link>
           </td>
-          <td>Delete</td>
+          <td onClick={()=>deleteSingleEmployee(employee._id)}>Delete</td>
         </tr>
       );
     });
