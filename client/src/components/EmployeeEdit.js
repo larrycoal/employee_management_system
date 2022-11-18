@@ -73,7 +73,6 @@ const EmployeeEdit = ({EditEmployee,fetchEmployee}) => {
             id="startDate"
             name="startDate"
             onChange={handleChange}
-            required
           />
         </div>
         <div>

@@ -1,16 +1,22 @@
-import React from 'react';
-import{Link} from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
-const EmployeeTable = ({ employeeList, setShowAdd,deleteSingleEmployee }) => {
+const EmployeeTable = ({ employeeList, setShowAdd, deleteSingleEmployee }) => {
   const displayEmployee = () => {
-    return employeeList.map((employee,idx) => {
+    return employeeList.map((employee, idx) => {
       const date = new Date(parseInt(employee.startDate));
       return (
         <tr key={employee._id}>
           <td>
-            <Link to={`/employeeDetails/${employee._id}`}> {employee.firstName}</Link>
+            <Link to={`/employeeDetails/${employee._id}`}>
+              {employee.firstName}
+            </Link>
           </td>
-          <td>{employee.lastName}</td>
+          <td>
+            <Link to={`/employeeDetails/${employee._id}`}>
+              {employee.lastName}
+            </Link>
+          </td>
           <td>{employee.age}</td>
           <td>{date.toLocaleDateString()}</td>
           <td>{employee.title}</td>

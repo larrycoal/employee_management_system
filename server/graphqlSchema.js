@@ -29,13 +29,13 @@ type Mutation{
 type Mutation{
     editEmployee(
         _id:String!
-        firstName:String!,
-        lastName:String!,
+        firstName:String,
+        lastName:String,
         age:Int,
-        startDate:String!,
-        title:String!,
-        department:String!,
-        employeeType:String!,
+        startDate:String,
+        title:String,
+        department:String,
+        employeeType:String,
         currentStatus:Boolean):employee
 }
 type Mutation{

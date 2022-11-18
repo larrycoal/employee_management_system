@@ -11,11 +11,12 @@ const EmployeeDetails = ({ fetchEmployee }) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
+      const date = new Date(parseInt(employeeData.startDate));
   return (
     <div className="employee_details--wrapper">
       <div className="container">
-        <i class="fa-thin fa-user-tie"></i>
+        <i class="fa-solid fa-user-tie"></i>
+        <h2>Personal Information</h2>
         <section className="employee_details">
           <div>
             <span>First Name:</span>
@@ -30,8 +31,8 @@ const EmployeeDetails = ({ fetchEmployee }) => {
             <span>{employeeData.age}</span>
           </div>
           <div>
-            <span>Start Date</span>
-            <span>{employeeData.startDate}</span>
+            <span>Start Date:</span>
+            <span>{date?.toLocaleDateString()}</span>
           </div>
           <div>
             <span>Title:</span>
@@ -47,7 +48,7 @@ const EmployeeDetails = ({ fetchEmployee }) => {
           </div>
           <div>
             <span>Type:</span>
-            <span>{employeeData.type}</span>
+            <span>{employeeData.employeeType}</span>
           </div>
         </section>
       </div>
