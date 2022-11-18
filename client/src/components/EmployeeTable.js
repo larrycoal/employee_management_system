@@ -7,7 +7,9 @@ const EmployeeTable = ({ employeeList, setShowAdd,deleteSingleEmployee }) => {
       const date = new Date(parseInt(employee.startDate));
       return (
         <tr key={employee._id}>
-          <td>{employee.firstName}</td>
+          <td>
+            <Link to={`/employeeDetails/${employee._id}`}> {employee.firstName}</Link>
+          </td>
           <td>{employee.lastName}</td>
           <td>{employee.age}</td>
           <td>{date.toLocaleDateString()}</td>
@@ -18,7 +20,7 @@ const EmployeeTable = ({ employeeList, setShowAdd,deleteSingleEmployee }) => {
           <td>
             <Link to={`/employee/${employee._id}`}>Edit</Link>
           </td>
-          <td onClick={()=>deleteSingleEmployee(employee._id)}>Delete</td>
+          <td onClick={() => deleteSingleEmployee(employee._id)}>Delete</td>
         </tr>
       );
     });

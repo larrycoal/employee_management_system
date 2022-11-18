@@ -236,3 +236,15 @@ header {
     text-decoration: none;
     color: #2a312f;
 }
+.filter__wrapper{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.2rem;
+    margin: 15px;
+    gap: 10px;
+    align-items: flex-end;
+}
+.filter__wrapper select {
+    padding: 5px;
+    font-size: 1rem;
+}

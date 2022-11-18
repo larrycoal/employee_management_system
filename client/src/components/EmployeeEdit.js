@@ -1,44 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-const EmployeeEdit = ({EditEmployee}) => {
+const EmployeeEdit = ({EditEmployee,fetchEmployee}) => {
   const [employeeData, setEmployeeData] = useState({});
-  const { _id } = useParams("id");
-
-  const query = `mutation{
-        fetchSingleEmployee(_id:"${_id}"){
-        _id,
-        firstName,
-        lastName,
-        age,
-        startDate,
-        title,
-        department,
-        employeeType,
-        currentStatus
-        }
-    }`;
-  const fetchEmployee = useCallback(async () => {
-    try {
-      await fetch("http://localhost:3000/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      }).then(async (response) => {
-        let resp = await response.json();
-        if (resp.data) {
-          setEmployeeData({ ...resp.data.fetchSingleEmployee });
-        }
-        if (resp.errors.length > 0) {
-          console.log(resp.errors[0].message);
-        }
-      });
-    } catch (error) {}
-  }, [query]);
-
+  const { _id } = useParams();
+  const navigate = useNavigate()
+  const fetchData = useCallback( async () => {
+    const resp = await fetchEmployee(_id);
+    setEmployeeData(resp);
+  },[_id,fetchEmployee])
   useEffect(() => {
-    fetchEmployee();
-  }, [fetchEmployee]);
+    fetchData()
+  }, [fetchData]);
 
   const handleChange = (e) => {
     setEmployeeData({
@@ -54,6 +27,7 @@ const EmployeeEdit = ({EditEmployee}) => {
        age: parseInt(employeeData.age),
      };
     EditEmployee(dataToSubmit);
+    navigate("/employee")
   };
 
   return (
