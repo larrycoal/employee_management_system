@@ -200,8 +200,11 @@ header {
   flex: 1;
 }
 .card__wrapper .bottom span:nth-child(1) {
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 600;
+}
+.card__wrapper .bottom span:nth-child(2){
+    font-size: 1.3rem;
 }
 .dashboard__wrapper .top {
   display: flex;
@@ -214,7 +217,11 @@ header {
 .dashboard__wrapper .chart__wrapper {
   height: 400px;
   width: 100%;
-  margin: 2rem 0;
+  margin: 4rem 0;
+}
+.dashboard__wrapper .chart__wrapper h2{
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
 }
 .edit__employee--wrapper {
   background-color: white;
