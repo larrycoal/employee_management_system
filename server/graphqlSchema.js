@@ -1,5 +1,5 @@
 const Employee = require("./models/employees");
-
+const moment = require("moment")
 const typeDefs = `
 type employee{
   _id:String,
@@ -7,6 +7,7 @@ type employee{
   lastName: String,
   age: Int,
   startDate: String,
+  retirementDate:String,
   title: String,
   department: String,
   employeeType:String,
@@ -50,8 +51,15 @@ const employeeList = async () => {
   return await Employee.find({});
 };
 const addEmployee = async (_, employeeDetails) => {
-  await Employee.create(employeeDetails);
-  return employeeDetails;
+  const yearsToRetirement = 64 - employeeDetails.age;
+  const retirementDate = moment(employeeDetails.startDate).add(yearsToRetirement,'years').add(6,'months').format("YYYY-MM-DD")
+
+  const newEmployeeDetails = {
+   ...employeeDetails,
+   retirementDate,
+ };
+ await Employee.create(newEmployeeDetails);
+ return newEmployeeDetails;
 };
 const fetchSingleEmployee = async (_, id) => {
   const resp = await Employee.findById(id);

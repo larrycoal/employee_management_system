@@ -54,12 +54,15 @@ header {
 .add_btn {
   width: fit-content;
   align-self: flex-end;
-  margin: 10px 0px;
+  margin: 1rem 0px;
   padding: 8px;
   background-color: #2a312f;
-  color: white;
   border: none;
   border-radius: 5px;
+}
+.add_btn button{
+  color: white;
+
 }
 .employee__create-wrapper {
   display: none;
@@ -294,4 +297,29 @@ header {
 }
 .employee_details div span:nth-child(2){
     font-size: 1.4rem;
+}
+.retiree_wrapper{
+  background-color: white;
+ padding: 1rem 30px;
+}
+.retiree_wrapper .container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.retiree_wrapper .retiree--card{
+  background-color: #2a312f;
+  color: white;
+  height: fit-content;
+  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+.retiree_wrapper .retiree--card p span:nth-child(1){
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-right: 6px;
 }

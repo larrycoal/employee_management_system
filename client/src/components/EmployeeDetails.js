@@ -1,6 +1,6 @@
-import React,{useState,useEffect,useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-
+import moment from "moment";
 const EmployeeDetails = ({ fetchEmployee }) => {
   const [employeeData, setEmployeeData] = useState({});
   const { _id } = useParams();
@@ -11,7 +11,15 @@ const EmployeeDetails = ({ fetchEmployee }) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-      const date = new Date(parseInt(employeeData.startDate));
+ const today = moment()
+ const retirementDate = moment(parseInt(employeeData.retirementDate));
+  const years = retirementDate.diff(today,"years")
+  let remainder = retirementDate.subtract(years,"years")
+  const months = remainder.diff(today,"months")
+  remainder = remainder.subtract(months,"months")
+  const days = remainder.diff(today,"days")
+
+  const date = moment(parseInt(employeeData.startDate)).format("DD-MM-YYYY");
   return (
     <div className="employee_details--wrapper">
       <div className="container">
@@ -32,7 +40,7 @@ const EmployeeDetails = ({ fetchEmployee }) => {
           </div>
           <div>
             <span>Start Date:</span>
-            <span>{date?.toLocaleDateString()}</span>
+            <span>{date}</span>
           </div>
           <div>
             <span>Title:</span>
@@ -49,6 +57,12 @@ const EmployeeDetails = ({ fetchEmployee }) => {
           <div>
             <span>Type:</span>
             <span>{employeeData.employeeType}</span>
+          </div>
+          <div>
+            <span>Retirement:</span>
+            <span>
+              {days + "Days, " + months + "Months, " + years + "Years"}
+            </span>
           </div>
         </section>
       </div>

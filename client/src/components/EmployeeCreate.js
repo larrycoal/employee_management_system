@@ -1,14 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
+import Alerts from '../utils/Alert';
 
 const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee,fetchData }) => {
-  const [formData, setFormData] = React.useState({});
-  const [errorMessage, setErrorMessage] = React.useState(null);
-
+  const [formData, setFormData] = useState({});
+    const [error, setError] = useState({
+      open: false,
+      message: "",
+    });
+ let errorMessage= null
   const handleChange = (e) => {
-    setErrorMessage(null);
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
   };
   const handleSubmit = (e) => {
@@ -17,30 +20,39 @@ const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee,fetchData }) => {
       switch (data) {
         case "firstName":
           if (formData[data] === "" || formData[data] === null)
-            setErrorMessage("Please enter employee firstname");
+            errorMessage = "Please enter employee firstname";
           break;
         case "lastName":
           if (formData[data] === "" || formData[data] === null)
-            setErrorMessage("Please enter employee lastname");
+            errorMessage = "Please enter employee lastname";
           break;
         case "age":
           if (parseInt(formData[data]) < 20 || parseInt(formData[data]) > 70)
-            setErrorMessage("Employee age must be between 20 and 70");
+            errorMessage = "Employee age must be between 20 and 70";
+          break;
+        case "employeeType":
+          if ((formData[data] === "Contract" || formData[data]==="Seasonal") && formData.title !== "Employee")
+            errorMessage = "Contractor/Seasonal Employee Can’t be Manager/Director/VP"
           break;
         default:
           break;
       }
     }
+    console.log("Validation error===>",errorMessage)
     if (errorMessage === null) {
       const dataToSubmit = {
         ...formData,
         currentStatus: 1,
         age: parseInt(formData.age),
       };
-       
       AddNewEmployee(dataToSubmit);
       setShowAdd(false);
       fetchData()
+    }else{
+      setError({
+        open:true,
+        message:errorMessage
+      })
     }
   };
   return (
@@ -143,6 +155,7 @@ const EmployeeCreate = ({ showAdd, setShowAdd, AddNewEmployee,fetchData }) => {
             </button>
           </div>
         </form>
+        <Alerts error={error} setError={setError} />
         {errorMessage && <p className="error">{errorMessage}</p>}
       </div>
     </div>
