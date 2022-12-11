@@ -1,10 +1,13 @@
 import React, { useState,useEffect,useCallback } from "react";
 import EmployeeDirectory from "./components/EmployeeDirectory";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import moment from "moment";
+
 import Layout from "./components/Layout";
 import DashBoard from "./components/DashBoard";
 import EmployeeEdit from "./components/EmployeeEdit";
 import EmployeeDetails from "./components/EmployeeDetails";
+import Retiree from "./components/Retiree";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -25,6 +28,7 @@ function App() {
         lastName,
         age,
         startDate,
+        retirementDate,
         title,
         department,
         employeeType,
@@ -37,10 +41,9 @@ function App() {
       body: JSON.stringify({ query }),
     }).then(async (response) => {
       let resp = await response.json();
-      if (resp.errors.length > 0) {
-        console.log(resp.errors[0].message);
-      }
-
+      // if (resp.errors?.length > 0) {
+      //   console.log(resp.errors[0].message);
+      // }
       console.log(resp);
     });
   };
@@ -89,7 +92,8 @@ function App() {
         title,
         department,
         employeeType,
-        currentStatus
+        currentStatus,
+        retirementDate
         }
     }`;
     let singleEmploye = {};
@@ -104,7 +108,7 @@ function App() {
           singleEmploye = { ...resp.data.fetchSingleEmployee };
         }
         if (resp.errors.length > 0) {
-          console.log(resp.errors[0].message);
+          console.log(resp?.errors[0]?.message);
         }
       });
     } catch (error) {}
@@ -118,6 +122,7 @@ function App() {
     lastName
     age
     startDate
+    retirementDate
     title
     department
     employeeType
@@ -133,12 +138,18 @@ function App() {
       if (response) {
         let fetchedData = await response.json();
         let fetchedEmployeeList = fetchedData.data.employeeList;
-        setEmployees(fetchedEmployeeList);
+        // Debug from here
+        setEmployees([...fetchedEmployeeList]);
       }
     } catch (err) {
       console.log(err?.message);
     }
   }, []);
+   const todayDate = moment();
+   const retired = employees.filter(
+     (emp) =>
+       moment(parseInt(emp?.retirementDate)).diff(todayDate, "months") <= 6
+   );
   useEffect(() => {
     fetchAllEmployee();
   }, [fetchAllEmployee]);
@@ -171,6 +182,7 @@ function App() {
               path="/employeeDetails/:_id"
               element={<EmployeeDetails fetchEmployee={fetchEmployee} />}
             />
+            <Route path="/retiree" element={<Retiree employees={retired} />} />
           </Routes>
         </Layout>
       </BrowserRouter>
