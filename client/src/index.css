@@ -60,9 +60,8 @@ header {
   border: none;
   border-radius: 5px;
 }
-.add_btn button{
+.add_btn button {
   color: white;
-
 }
 .employee__create-wrapper {
   display: none;
@@ -206,8 +205,8 @@ header {
   font-size: 4rem;
   font-weight: 600;
 }
-.card__wrapper .bottom span:nth-child(2){
-    font-size: 1.3rem;
+.card__wrapper .bottom span:nth-child(2) {
+  font-size: 1.3rem;
 }
 .dashboard__wrapper .top {
   display: flex;
@@ -222,9 +221,9 @@ header {
   width: 100%;
   margin: 4rem 0;
 }
-.dashboard__wrapper .chart__wrapper h2{
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
+.dashboard__wrapper .chart__wrapper h2 {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
 }
 .edit__employee--wrapper {
   background-color: white;
@@ -278,10 +277,10 @@ header {
 .employee_details--wrapper .container i {
   font-size: 15rem;
 }
-.employee_details--wrapper .container h2{
-    width: 100%;
-    text-align: left;
-    font-size: 2rem;
+.employee_details--wrapper .container h2 {
+  width: 100%;
+  text-align: left;
+  font-size: 2rem;
 }
 .employee_details {
   width: 100%;
@@ -290,24 +289,24 @@ header {
   gap: 1rem;
   margin: 1rem 2rem;
 }
-.employee_details div span:nth-child(1){
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin: 0 5px;
+.employee_details div span:nth-child(1) {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0 5px;
 }
-.employee_details div span:nth-child(2){
-    font-size: 1.4rem;
+.employee_details div span:nth-child(2) {
+  font-size: 1.4rem;
 }
-.retiree_wrapper{
+.retiree_wrapper {
   background-color: white;
- padding: 1rem 30px;
+  padding: 1rem 30px;
 }
-.retiree_wrapper .container{
+.retiree_wrapper .container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
-.retiree_wrapper .retiree--card{
+.retiree_wrapper .retiree--card {
   background-color: #2a312f;
   color: white;
   height: fit-content;
@@ -318,8 +317,74 @@ header {
   gap: 10px;
   font-size: 1.2rem;
 }
-.retiree_wrapper .retiree--card p span:nth-child(1){
+.retiree_wrapper .retiree--card p span:nth-child(1) {
   font-weight: 600;
   font-size: 1.4rem;
   margin-right: 6px;
+}
+.hamburger {
+  display: none !important;
+}
+@media only screen and (max-width: 600px) {
+  .layout {
+    grid-template-areas:
+      "header header header"
+      "main main main"
+      "main main main";
+    overflow: hidden;
+  }
+  .layout_open {
+    display: grid;
+    grid-template-areas:
+      "nav header header"
+      "nav main main"
+      "nav main main" !important;
+  }
+  .hamburger {
+    display: inline !important;
+  }
+  .layout .header,
+  .layout_open .header {
+    display: flex;
+    gap: 1rem;
+    min-width: fit-content;
+  }
+  /* .navbar {
+  } */
+  .dashboard__wrapper {
+    grid-area: main;
+    padding: 1rem;
+  }
+  .layout_open .dashboard__wrapper,
+  .layout_open .employee__wrapper {
+    min-width: fit-content;
+  }
+  .dashboard__wrapper .top {
+    overflow: scroll;
+    padding: 1rem;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+  .dashboard__wrapper .top::-webkit-scrollbar {
+    display: none;
+  }
+  .dashboard__wrapper .top .card__wrapper {
+    min-width: 90%;
+    margin: 0 auto;
+    scroll-snap-align: center;
+  }
+  .dashboard__wrapper .chart__wrapper {
+    margin: 0;
+    padding: 2rem 0;
+  }
+  .retiree_wrapper,.employee_details--wrapper,.edit__employee--wrapper {
+  min-width: 100vw;
+  overflow: scroll;
+}
+.edit__employee--wrapper form div{
+  width: 80%;
+}
+.employee_details{
+  grid-template-columns: 1fr;
+}
 }

@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 const Layout = (props) => {
   const location = useLocation()
+  const [showNavbar, setShowNavbar] = useState(false);
   const [headerText,setHeaderText] = useState("Dashboard")
   useEffect(()=>{
   let newheaderText = location.pathname === "/" ? "Daashboard" : location.pathname === "/employee" ? "Employee Page" : "Retiree Page"
   setHeaderText(newheaderText)
   },[location])
   return (
-    <div className="layout">
-      <nav className="navbar">
+    <div className={showNavbar ? "layout" : "layout_open layout"}>
+      <nav
+        className="navbar"
+        style={{
+          display: `${showNavbar ? "none" : "block"}`,
+        }}
+      >
         <h2>EMS</h2>
         <ul>
           <li>
@@ -31,6 +38,17 @@ const Layout = (props) => {
         </ul>
       </nav>
       <header className="header">
+        {showNavbar ? (
+          <MenuIcon
+            className="hamburger"
+            onClick={() => setShowNavbar(!showNavbar)}
+          />
+        ) : (
+          <MenuOpenIcon
+            className="hamburger"
+            onClick={() => setShowNavbar(!showNavbar)}
+          />
+        )}
         <h2>{headerText}</h2>
       </header>
       {props.children}
