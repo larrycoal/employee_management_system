@@ -1,8 +1,14 @@
 import React from 'react';
 
-const EmployeeSearch = ({ filterEmployee }) => {
-
-
+const EmployeeSearch = ({ employees, setFilteredEmployees }) => {
+  const filterEmployee = (filterParam) => {
+    if (filterParam === "All") {
+      setFilteredEmployees(employees);
+    } else {
+      const temp = employees.filter((emp) => emp.employeeType === filterParam);
+      setFilteredEmployees(temp);
+    }
+  };
   return (
     <div className="filter__wrapper">
       <h3>Filter:</h3>

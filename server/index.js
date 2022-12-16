@@ -1,8 +1,7 @@
-const express = require("express")
+const express = require("express");
 require("./models/db");
 const { ApolloServer } = require("apollo-server-express");
-const {typeDefs,resolvers} = require("./graphqlSchema")
-
+const { typeDefs, resolvers } = require("./graphqlSchema");
 
 const server = new ApolloServer({
   typeDefs,
@@ -13,6 +12,6 @@ server.start().then(() => {
 });
 const app = express();
 
-app.listen(3000,()=>{
-    console.log("server started")
-})
+app.listen(3000, () => {
+  console.log("server started");
+});

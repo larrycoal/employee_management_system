@@ -66,7 +66,6 @@ const DashBoard = ({ employees }) => {
       EmployeeCount: temp[key],
     });
   }
-  console.log(chartData);
   return (
     <div className="dashboard__wrapper">
       <div className="top">
@@ -76,8 +75,8 @@ const DashBoard = ({ employees }) => {
           title="Full-Time Employee"
         />
         <Card
-          count={employees.filter((e) => e.employeeType !== "Full-Time").length}
-          title="Other Employee"
+          count={employees.filter((e) => !e.currentStatus).length}
+          title="Retired Employee"
         />
       </div>
       <div className="chart__wrapper">

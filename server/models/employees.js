@@ -6,6 +6,7 @@ const EmployeeSchema = new Schema({
   lastName: String,
   age: Number,
   startDate: Date,
+  retirementDate:Date,
   title: String,
   department: String,
   employeeType:String,

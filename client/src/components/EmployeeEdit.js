@@ -1,35 +1,40 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const EmployeeEdit = ({EditEmployee,fetchEmployee}) => {
+const EmployeeEdit = ({ EditEmployee, fetchEmployee }) => {
   const [employeeData, setEmployeeData] = useState({});
   const { _id } = useParams();
-  const navigate = useNavigate()
-  const fetchData = useCallback( async () => {
+  const navigate = useNavigate();
+  const fetchData = useCallback(async () => {
     const resp = await fetchEmployee(_id);
     setEmployeeData(resp);
-  },[_id,fetchEmployee])
+  }, [_id, fetchEmployee]);
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, [fetchData]);
 
   const handleChange = (e) => {
-    setEmployeeData({
-      ...employeeData,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "currentStatus") {
+      setEmployeeData({
+        ...employeeData,
+        currentStatus: parseInt(e.target.value),
+      });
+    } else {
+      setEmployeeData({
+        ...employeeData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-     const dataToSubmit = {
-       ...employeeData,
-       currentStatus: 1,
-       age: parseInt(employeeData.age),
-     };
+    const dataToSubmit = {
+      ...employeeData,
+      age: parseInt(employeeData.age),
+    };
     EditEmployee(dataToSubmit);
-    navigate("/employee")
+    navigate("/employee");
   };
-
   return (
     <div className="edit__employee--wrapper">
       <form onSubmit={handleSubmit}>
@@ -76,6 +81,19 @@ const EmployeeEdit = ({EditEmployee,fetchEmployee}) => {
           />
         </div>
         <div>
+          <label htmlFor="currentStatus">Status</label>
+          <select
+            name="currentStatus"
+            id="currentStatus"
+            //value={employeeData.currentStatus ? "Active":"Retired"}
+            onChange={handleChange}
+            required
+          >
+            <option value="1">Active</option>
+            <option value="0">Retired</option>
+          </select>
+        </div>
+        <div>
           <label htmlFor="title">Title</label>
           <select
             name="title"
@@ -84,7 +102,6 @@ const EmployeeEdit = ({EditEmployee,fetchEmployee}) => {
             onChange={handleChange}
             required
           >
-            <option value=""></option>
             <option value="Employee">Employee</option>
             <option value="Manager">Manager</option>
             <option value="Director">Director</option>
@@ -100,7 +117,6 @@ const EmployeeEdit = ({EditEmployee,fetchEmployee}) => {
             onChange={handleChange}
             required
           >
-            <option value=""></option>
             <option value="IT">IT</option>
             <option value="Marketing">Marketing</option>
             <option value="HR">HR</option>
