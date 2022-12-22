@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 require("./models/db");
 const { ApolloServer } = require("apollo-server-express");
@@ -12,6 +13,6 @@ server.start().then(() => {
 });
 const app = express();
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("server started");
 });
