@@ -12,7 +12,6 @@ server.start().then(() => {
   server.applyMiddleware({ app, path: "/graphql", cors: true });
 });
 const app = express();
-
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started");
 });
