@@ -41,9 +41,6 @@ function App() {
       body: JSON.stringify({ query }),
     }).then(async (response) => {
       let resp = await response.json();
-      // if (resp.errors?.length > 0) {
-      //   console.log(resp.errors[0].message);
-      // }
       console.log(resp);
     });
   };
