@@ -35,7 +35,7 @@ function App() {
         currentStatus
         }
   }`;
-    await fetch("http://localhost:3000/graphql", {
+    await fetch("https://employee-management-api-byi6.onrender.com/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
@@ -69,7 +69,7 @@ function App() {
         currentStatus
         }
   }`;
-    await fetch("http://localhost:3000/graphql", {
+    await fetch("https://employee-management-api-byi6.onrender.com/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
@@ -95,7 +95,7 @@ function App() {
     }`;
     let singleEmploye = {};
     try {
-      await fetch("http://localhost:3000/graphql", {
+      await fetch("https://employee-management-api-byi6.onrender.com/graphql", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
@@ -127,11 +127,14 @@ function App() {
   }
   }`;
     try {
-      const response = await fetch("http://localhost:3000/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
+      const response = await fetch(
+        "https://employee-management-api-byi6.onrender.com/graphql",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        }
+      );
       if (response) {
         let fetchedData = await response.json();
         let fetchedEmployeeList = fetchedData.data.employeeList;
