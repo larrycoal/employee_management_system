@@ -23,11 +23,14 @@ const EmployeeDirectory = ({ AddNewEmployee, employees, fetchData }) => {
     }`;
 
       try {
-        const resp = await fetch("http://localhost:3000/graphql", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ query }),
-        });
+        const resp = await fetch(
+          "https://employee-management-api-byi6.onrender.com/graphql",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query }),
+          }
+        );
         if (resp.status === 200) {
           fetchData();
         }
